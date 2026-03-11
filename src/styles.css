@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, Arial;
+  background: linear-gradient(135deg, #e9eef5, #f7f9fc);
+  min-height: 100vh;
+  /* display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 60px; */
+}
+
+.daily {
+  position: relative;
+  padding: 10px;
+  max-width: 360px;
+  width: 100%;
+  margin: auto;
+}
+
+/* widget */
+
+.widget {
+  width: 100%;
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* titulo */
+
+h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  font-size: 20px;
+}
+
+/* formulario */
+
+.form .box {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.form input {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.form input[type="time"] {
+  width: 50%;
+}
+
+.form input[type="text"] {
+  flex: 1;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 50%;
+}
+
+.form button:hover {
+  background: #2563eb;
+}
+
+/* lista */
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* tarea */
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f7f7f7;
+  padding: 8px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.task:hover {
+  background: #f1f5f9;
+}
+
+.task.done {
+  background: #e6f9ec;
+}
+
+/* hora */
+
+.hora {
+  width: 55px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* nombre */
+
+.nombre {
+  flex: 1;
+  font-size: 14px;
+}
+
+.task.done .nombre {
+  text-decoration: line-through;
+  color: #2e7d32;
+}
+
+/* checkbox */
+
+.task input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* boton eliminar */
+
+.task button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+.task button:hover {
+  opacity: 1;
+}
+
+.menu {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.menu button {
+  flex: 1;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: white;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background: #2563eb;
+}
