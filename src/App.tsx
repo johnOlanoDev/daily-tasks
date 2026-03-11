@@ -160,7 +160,7 @@ function App() {
 
   useEffect(() => {
     if (window.electronAPI?.onPlaySound) {
-      window.electronAPI.onPlaySound((event, file: string) => {
+      window.electronAPI.onPlaySound((file: string) => {
         console.log("Reproduciendo sonido:", file);
         const normalizedPath = file.replace(/\\/g, "/");
         const audio = new Audio(`file://${normalizedPath}`);
