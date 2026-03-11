@@ -10,6 +10,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 360,
     height: 520,
+    icon: path.join(__dirname, "../assets/icon.ico"),
     resizable: false,
     alwaysOnTop: true,
     webPreferences: {

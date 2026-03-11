@@ -4,6 +4,9 @@
 
 - npm run dist
 
+// Cambiar Versión
+// Ejecutar como administrador en PowerShell
+
 Eliminar cache -- C:\Users\USER\AppData\Local\electron-builder
 
 # React + TypeScript + Vite

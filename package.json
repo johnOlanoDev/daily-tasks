@@ -76,7 +76,7 @@
         "nsis"
       ],
       "forceCodeSigning": false,
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon-jhom.ico"
     }
   }
 }
