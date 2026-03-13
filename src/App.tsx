@@ -20,12 +20,25 @@ function App() {
 
   const today = new Date().toISOString().split("T")[0];
   const [view, setView] = useState<"tasks" | "create">("tasks");
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission();
     }
   }, []);
+
+  const speakTask = (task: Task) => {
+    if (!("speechSynthesis" in window)) return;
+
+    const text = `Son las ${task.hora}. Debes realizar la tarea: ${task.nombre}`;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "es-ES";
+    utterance.rate = 0.95;
+
+    window.speechSynthesis.speak(utterance);
+  };
 
   const showNotification = (task: Task) => {
     if (Notification.permission === "granted") {
@@ -58,6 +71,8 @@ function App() {
           } else {
             showNotification(task);
           }
+
+          speakTask(task);
 
           return {
             ...task,
@@ -120,21 +135,42 @@ function App() {
       return;
     }
 
-    const newTask: Task = {
-      id: Date.now(),
-      nombre,
-      hora,
-      completed: false,
-      fecha: today,
-      notified: false,
-    };
+    if (editingTask) {
+      const updated = tasks
+        .map((t) =>
+          t.id === editingTask.id
+            ? {
+                ...t,
+                nombre,
+                hora,
+                notified: false,
+                completed: false,
+              }
+            : t,
+        )
+        .sort((a, b) => a.hora.localeCompare(b.hora));
 
-    const updated = [...tasks, newTask].sort((a, b) =>
-      a.hora.localeCompare(b.hora),
-    );
+      setTasks(updated);
+      saveTasks(updated);
 
-    setTasks(updated);
-    saveTasks(updated);
+      setEditingTask(null);
+    } else {
+      const newTask: Task = {
+        id: Date.now(),
+        nombre,
+        hora,
+        completed: false,
+        fecha: today,
+        notified: false,
+      };
+
+      const updated = [...tasks, newTask].sort((a, b) =>
+        a.hora.localeCompare(b.hora),
+      );
+
+      setTasks(updated);
+      saveTasks(updated);
+    }
 
     setNombre("");
     setHora("");
@@ -169,6 +205,13 @@ function App() {
     }
   }, []);
 
+  const editTask = (task: Task) => {
+    setNombre(task.nombre);
+    setHora(task.hora);
+    setEditingTask(task);
+    setView("create");
+  };
+
   return (
     <div className="daily">
       <div className="menu">
@@ -194,7 +237,9 @@ function App() {
                 onChange={(e) => setHora(e.target.value)}
               />
 
-              <button onClick={addTask}>Agregar</button>
+              <button onClick={addTask}>
+                {editingTask ? "Guardar cambios" : "Agregar"}
+              </button>
             </div>
           </div>
         )}
@@ -215,7 +260,7 @@ function App() {
                   checked={task.completed}
                   onChange={() => toggleTask(task.id)}
                 />
-
+                <button onClick={() => editTask(task)}>✏️</button>
                 <button onClick={() => deleteTask(task.id)}>❌</button>
               </div>
             ))}
